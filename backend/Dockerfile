@@ -32,6 +32,13 @@ COPY prisma ./prisma/
 RUN npm ci --only=production && \
     npx prisma generate
 
+# Copy built application from builder stage
+COPY --from=builder /app/dist ./dist
+
+# Optional: set environment and expose port (Railway sets PORT dynamically)
+ENV NODE_ENV=production
+EXPOSE 3000
+
 # Copy built application from builder
 COPY --from=builder /app/dist ./dist
 
