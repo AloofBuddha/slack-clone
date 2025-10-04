@@ -3,6 +3,10 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Install OpenSSL for Prisma engines on Alpine and configure Prisma to use OpenSSL 3
+RUN apk add --no-cache openssl
+ENV PRISMA_OPENSSL_LIBRARIES=openssl-3
+
 # Copy package files
 COPY package*.json ./
 COPY prisma ./prisma/
@@ -23,6 +27,10 @@ RUN npm run build
 FROM node:20-alpine
 
 WORKDIR /app
+
+# Install OpenSSL for Prisma engines on Alpine and configure Prisma to use OpenSSL 3
+RUN apk add --no-cache openssl
+ENV PRISMA_OPENSSL_LIBRARIES=openssl-3
 
 # Copy package files
 COPY package*.json ./
