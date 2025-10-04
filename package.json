@@ -1,0 +1,64 @@
+{
+  "name": "slack-clone",
+  "version": "1.0.0",
+  "description": "A production-ready Slack clone with real-time messaging",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:restart": "docker-compose restart",
+    "docker:logs": "docker-compose logs -f",
+    "prisma:studio": "cd backend && npm run prisma:studio",
+    "prisma:migrate": "cd backend && npm run prisma:migrate",
+    "prisma:generate": "cd backend && npm run prisma:generate",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend && npm test",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint",
+    "clean": "rm -rf backend/node_modules backend/dist frontend/node_modules frontend/dist",
+    "setup": "npm run docker:up && npm run install:all && npm run prisma:generate && npm run prisma:migrate"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/slack-clone.git"
+  },
+  "keywords": [
+    "slack",
+    "clone",
+    "chat",
+    "messaging",
+    "real-time",
+    "websocket",
+    "nestjs",
+    "react",
+    "typescript",
+    "prisma",
+    "postgresql"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/slack-clone/issues"
+  },
+  "homepage": "https://github.com/yourusername/slack-clone#readme"
+}
