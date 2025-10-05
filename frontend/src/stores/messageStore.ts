@@ -73,41 +73,24 @@ export const useMessageStore = create<MessageState>((set, get) => ({
   },
 
   sendMessage: async (channelId: string, content: string, parentId?: string) => {
-    try {
-      await messagesApi.send(channelId, content, parentId);
-      // Do NOT add optimistically. Rely on socket "message:new" to avoid duplicates for the sender.
-      // Returning the API result in case caller needs it for ack/UI, but state update will come via socket.
-      return;
-    } catch (error: any) {
-      throw error;
-    }
+    await messagesApi.send(channelId, content, parentId);
+    // Do NOT add optimistically. Rely on socket "message:new" to avoid duplicates for the sender.
+    // Returning the API result in case caller needs it for ack/UI, but state update will come via socket.
   },
 
   updateMessage: async (messageId: string, content: string) => {
-    try {
-      const message = await messagesApi.update(messageId, content);
-      get().updateMessageInChannel(message.channelId, message);
-    } catch (error: any) {
-      throw error;
-    }
+    const message = await messagesApi.update(messageId, content);
+    get().updateMessageInChannel(message.channelId, message);
   },
 
   deleteMessage: async (messageId: string) => {
-    try {
-      await messagesApi.delete(messageId);
-      // Message deletion will be handled via socket event
-    } catch (error: any) {
-      throw error;
-    }
+    await messagesApi.delete(messageId);
+    // Message deletion will be handled via socket event
   },
 
   addReaction: async (messageId: string, emoji: string) => {
-    try {
-      await messagesApi.addReaction(messageId, emoji);
-      // Reaction update will be handled via socket event or optimistically update
-    } catch (error: any) {
-      throw error;
-    }
+    await messagesApi.addReaction(messageId, emoji);
+    // Reaction update will be handled via socket event or optimistically update
   },
 
   addMessageToChannel: (channelId: string, message: Message) => {

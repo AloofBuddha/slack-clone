@@ -66,13 +66,9 @@ export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
   },
 
   inviteUser: async (workspaceId: string, email: string) => {
-    try {
-      await workspacesApi.invite(workspaceId, email);
-      // Refresh workspace to get updated members
-      await get().fetchWorkspace(workspaceId);
-    } catch (error: any) {
-      throw error;
-    }
+    await workspacesApi.invite(workspaceId, email);
+    // Refresh workspace to get updated members
+    await get().fetchWorkspace(workspaceId);
   },
 
   setCurrentWorkspace: (workspace: Workspace | null) => {

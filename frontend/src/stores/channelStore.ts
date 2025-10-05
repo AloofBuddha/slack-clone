@@ -70,36 +70,30 @@ export const useChannelStore = create<ChannelState>((set, get) => ({
   },
 
   joinChannel: async (channelId: string) => {
-    try {
-      await channelsApi.join(channelId);
-      // Refresh channels to update membership
-      const currentChannel = get().currentChannel;
-      if (currentChannel?.workspaceId) {
-        await get().fetchChannels(currentChannel.workspaceId);
-      }
-      socketService.joinChannel(channelId);
-    } catch (error: any) {
-      throw error;
+    await channelsApi.join(channelId);
+    // Refresh channels to update membership
+    const currentChannel = get().currentChannel;
+    if (currentChannel?.workspaceId) {
+      await get().fetchChannels(currentChannel.workspaceId);
     }
+    socketService.joinChannel(channelId);
+
   },
 
   leaveChannel: async (channelId: string) => {
-    try {
-      await channelsApi.leave(channelId);
-      // Refresh channels to update membership
-      const currentChannel = get().currentChannel;
-      if (currentChannel?.workspaceId) {
-        await get().fetchChannels(currentChannel.workspaceId);
-      }
-      socketService.leaveChannel(channelId);
-      
-      // Clear current channel if it's the one being left
-      if (currentChannel?.id === channelId) {
-        set({ currentChannel: null });
-      }
-    } catch (error: any) {
-      throw error;
+    await channelsApi.leave(channelId);
+    // Refresh channels to update membership
+    const currentChannel = get().currentChannel;
+    if (currentChannel?.workspaceId) {
+      await get().fetchChannels(currentChannel.workspaceId);
     }
+    socketService.leaveChannel(channelId);
+    
+    // Clear current channel if it's the one being left
+    if (currentChannel?.id === channelId) {
+      set({ currentChannel: null });
+    }
+
   },
 
   setCurrentChannel: (channel: Channel | null) => {

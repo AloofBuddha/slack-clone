@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MoreVertical, Smile, Reply, Trash2, Edit2 } from 'lucide-react';
+import { Smile, Reply, Trash2, Edit2 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { useAuthStore } from '../../stores/authStore';
