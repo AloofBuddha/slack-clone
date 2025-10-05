@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { HealthController } from './health/health.controller';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { PrismaModule } from './prisma/prisma.module';
@@ -30,5 +31,6 @@ import { GatewayModule } from './gateway/gateway.module';
     FilesModule,
     GatewayModule,
   ],
+  controllers: [HealthController],
 })
 export class AppModule {}
