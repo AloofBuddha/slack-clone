@@ -47,14 +47,8 @@ COPY --from=builder /app/dist ./dist
 ENV NODE_ENV=production
 EXPOSE 3000
 
-# Copy built application from builder
-COPY --from=builder /app/dist ./dist
-
 # Create uploads directory
 RUN mkdir -p uploads
-
-# Expose port
-EXPOSE 3000
 
 # Start application
 CMD ["npm", "run", "start:prod"]
